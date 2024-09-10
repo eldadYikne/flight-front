@@ -14,12 +14,11 @@ import { FilterFlifght } from 'src/types/filter';
 })
 export class ApiService {
   constructor(private http: HttpClient, private router: Router) {}
-  private API_URL = 'http://localhost:3000/api';
+  private API_URL = 'https://flight-api-73ie.onrender.com/api';
 
   private _flights = new BehaviorSubject<Flight[]>([]);
 
   flights = this._flights.asObservable();
-
   getAllFlights(filter?: FilterFlifght): Observable<Flight[]> {
     console.log('getAllFlights CALLED');
     let params = new HttpParams();

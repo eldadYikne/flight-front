@@ -9,7 +9,7 @@ export class WebSocketService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io('http://localhost:3000', {
+    this.socket = io('https://flight-api-73ie.onrender.com', {
       withCredentials: true, // Include credentials if necessary
     });
   }

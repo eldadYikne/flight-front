@@ -68,15 +68,20 @@ export class HomeComponent implements OnInit {
       this.getAllFlightFromDb();
     });
     this.getAllFlightFromDb();
+
     this.apiService.flights.subscribe((flights) => {
       this.flights = flights;
+      console.log('this.flightFilterData', this.flightFilterData);
       console.log('new flights at home!! ', flights);
     });
   }
+
   getAllFlightFromDb() {
-    this.apiService.getAllFlights().subscribe((flights) => {
-      this.flights = flights;
-    });
+    this.apiService
+      .getAllFlights(this.flightFilterData)
+      .subscribe((flights) => {
+        this.flights = flights;
+      });
   }
   sendPing() {
     this.webSocketService.sendMessage('ping', {
