@@ -1,0 +1,14 @@
+.form-input,
+.form-select {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.warning-message {
+  color: red;
+  font-size: 12px;
+}

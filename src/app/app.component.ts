@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'todo-front';
+  title = 'Flights';
+  showMenu = false;
 }

@@ -1,0 +1,75 @@
+<div class="px-5 py-5 flex flex-col items-center">
+  <span class="text-2xl">{{ id ? "Update" : "Create" }} Fligth</span>
+  <form
+    [formGroup]="newFlightForm"
+    class="w-full flex flex-col gap-2"
+    (ngSubmit)="onSubmit()"
+  >
+    <div *ngFor="let input of inputs">
+      <label>{{ input.label }}</label>
+
+      <input
+        *ngIf="input.type === 'text'"
+        [placeholder]="input.placeholder"
+        type="text"
+        class="form-input"
+        [disabled]="requestSent"
+        (input)="handelChange(input)"
+        [formControlName]="input.key"
+      />
+
+      <select
+        *ngIf="input.type === 'dropdown' && isAirportArray(input.data)"
+        class="form-select"
+        [formControlName]="input.key"
+        [disabled]="requestSent"
+      >
+        <option value="" disabled>Select {{ input.label }}</option>
+        <option *ngFor="let option of input.data" [value]="option.id">
+          {{ option.airportName }} - {{ option.airportCity }}
+        </option>
+      </select>
+
+      <select
+        *ngIf="input.type === 'dropdown' && isFlightStatusArray(input.data)"
+        class="form-select"
+        [disabled]="requestSent"
+        [formControlName]="input.key"
+      >
+        <option value="" disabled>Select {{ input.label }}</option>
+        <option *ngFor="let option of input.data" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+
+      <input
+        (input)="handelChange(input)"
+        *ngIf="input.type === 'date'"
+        [placeholder]="input.placeholder"
+        type="time"
+        class="form-input"
+        [disabled]="requestSent"
+        [formControlName]="input.key"
+      />
+      <div *ngIf="errorsInputs.includes(input.key)" class="warning-message">
+        {{ input.warning }}
+      </div>
+    </div>
+    <div>
+      <button
+        *ngIf="!requestSent"
+        mat-flat-button
+        class="bg-blue-950 text-white"
+      >
+        {{ id ? "Update Flight" : "Create Flight" }}
+        <mat-icon>flight_takeoff</mat-icon>
+      </button>
+      <div
+        *ngIf="requestSent"
+        class="bg-green-600 text-white shadow-md h-16 rounded-md flex justify-center items-center"
+      >
+        <span> Flight {{ id ? "Updated" : "Created" }} successfully ! </span>
+      </div>
+    </div>
+  </form>
+</div>

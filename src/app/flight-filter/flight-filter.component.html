@@ -1,0 +1,43 @@
+<div *ngIf="airports$ | async">
+  <form
+    class="flex sm:flex-row flex-col sm:items-end items-start gap-2"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="flex flex-col gap-2">
+      <label for="flightNumber">Flight Number:</label>
+      <input
+        class="border p-1"
+        type="text"
+        [(ngModel)]="flightNumber"
+        name="flightNumber"
+        placeholder="Enter Flight Number"
+      />
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="landingAirport">Landing Airport:</label>
+      <select class="p-2" [(ngModel)]="landingAirport" name="landingAirport">
+        <option value="" disabled>Select Landing Airport</option>
+        <option value="" selected [value]="''">All</option>
+        <option *ngFor="let airport of airports$ | async" [value]="airport.id">
+          {{ airport.airportName }}
+        </option>
+      </select>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="takeoffAirport">Takeoff Airport:</label>
+      <select class="p-2" [(ngModel)]="takeoffAirport" name="takeoffAirport">
+        <option value="" disabled>Select Takeoff Airport</option>
+        <option value="" selected [value]="''">All</option>
+        <option *ngFor="let airport of airports$ | async" [value]="airport.id">
+          {{ airport.airportName }}
+        </option>
+      </select>
+    </div>
+    <div class="flex justify-center items-end">
+      <button mat-flat-button class="bg-blue-950 text-white">
+        Filter
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </form>
+</div>
