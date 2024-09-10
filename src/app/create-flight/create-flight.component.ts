@@ -38,7 +38,7 @@ export class CreateFlightComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getAllAirports().subscribe((airports) => {
       this.airports = airports;
-      console.log(airports);
+      // console.log(airports);
       this.inputs = this.inputs.map((input) => {
         if (input.key === 'takeoffAirport' || input.key === 'landingAirport') {
           return { ...input, data: airports };
@@ -48,7 +48,7 @@ export class CreateFlightComponent implements OnInit {
     });
 
     this.id = this.route.snapshot.paramMap.get('id') ?? ''; // Capture the ID from the URL
-    console.log('Received ID:', this.id);
+    // console.log('Received ID:', this.id);
     if (this.id) {
       this.apiService
         .getAllFlights({
@@ -58,7 +58,7 @@ export class CreateFlightComponent implements OnInit {
           takeoffAirport: '',
         })
         .subscribe((flights) => {
-          console.log('flights', flights);
+          // console.log('flights', flights);
           const existingFlight = flights.find(
             (flight) => String(flight.id) === String(this.id)
           );
@@ -128,7 +128,7 @@ export class CreateFlightComponent implements OnInit {
     },
   ];
   handelChange(e: FlightInput) {
-    console.log('input', this.newFlightForm.get(e.key)?.value);
+    // console.log('input', this.newFlightForm.get(e.key)?.value);
   }
   onSubmit() {
     const flightData: Flight = {
@@ -172,7 +172,7 @@ export class CreateFlightComponent implements OnInit {
           this.requestSent = true;
           setTimeout(() => this.router.navigateByUrl('/'), 1500);
         }
-        console.log(data);
+        // console.log(data);
       });
     } else {
       this.apiService.createFlight(flightData).subscribe((data) => {
@@ -180,9 +180,9 @@ export class CreateFlightComponent implements OnInit {
           this.requestSent = true;
           setTimeout(() => this.router.navigateByUrl('/'), 1500);
         }
-        console.log(data);
+        // console.log(data);
       });
-      console.log('Flight Data:', flightData);
+      // console.log('Flight Data:', flightData);
     }
   }
 

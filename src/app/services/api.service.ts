@@ -25,7 +25,7 @@ export class ApiService {
 
   flights = this._flights.asObservable();
   getAllFlights(filter?: FilterFlifght): Observable<Flight[]> {
-    console.log('getAllFlights CALLED');
+    // console.log('getAllFlights CALLED');
     let params = new HttpParams();
 
     if (filter?.flightNumber) {
@@ -43,14 +43,13 @@ export class ApiService {
 
     return this.http.get<Flight[]>(`${this.API_URL}/flights`, { params }).pipe(
       tap((newFlights) => {
-        console.log('new fLIGHT TO uPDATE! ', newFlights);
         this._flights.next(newFlights);
       })
     );
   }
 
   createFlight(flight: Flight) {
-    console.log('flight get to create and send !', flight.flightNumber);
+    // console.log('flight get to create and send !', flight.flightNumber);
 
     return this.http.post(`${this.API_URL}/flights`, {
       flightNumber: flight.flightNumber,
@@ -63,7 +62,7 @@ export class ApiService {
   }
 
   upadteFlight(flight: Flight) {
-    console.log('upadteFlight flightId', flight.id, flight);
+    // console.log('upadteFlight flightId', flight.id, flight);
     return this.http
       .patch(`${this.API_URL}/flights/${flight.id}`, {
         flight: {

@@ -36,18 +36,18 @@ export class TableBasicExample {
       (column) => column.key ?? column.action ?? ''
     );
     this.dataSource = this.data;
-    console.log('this.data', this.data);
-    console.log('this.displayedColumns', this.displayedColumns);
+    // console.log('this.data', this.data);
+    // console.log('this.displayedColumns', this.displayedColumns);
   }
 
   EditRow(element: Flight) {
-    console.log('element', element.id);
+    // console.log('element', element.id);
     if (element.id) {
       this.EditFlight.emit(element);
     }
   }
   deleteRow(element: Flight) {
-    console.log('element', element.id);
+    // console.log('element', element.id);
     if (element.id) {
       const newId = { flightId: element.id };
       this.deleteFlightId.emit(newId);

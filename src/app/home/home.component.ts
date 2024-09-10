@@ -58,21 +58,21 @@ export class HomeComponent implements OnInit {
     console.log('Filtered Data:', this.flightFilterData);
     this.apiService.getAllFlights(filterData).subscribe((flights) => {
       this.flights = flights;
-      console.log('flights', flights);
+      // console.log('flights', flights);
     });
   }
 
   ngOnInit(): void {
     this.webSocketService.listen('pong').subscribe((data: any) => {
-      console.log('Received:', data);
+      // console.log('Received:', data);
       this.getAllFlightFromDb();
     });
     this.getAllFlightFromDb();
 
     this.apiService.flights.subscribe((flights) => {
       this.flights = flights;
-      console.log('this.flightFilterData', this.flightFilterData);
-      console.log('new flights at home!! ', flights);
+      // console.log('this.flightFilterData', this.flightFilterData);
+      // console.log('new flights at home!! ', flights);
     });
   }
 
@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit {
   deleteFlight(id: { flightId: string }) {
     if (confirm('Do you want to remove the flight?')) {
       this.apiService.deleteFlight(id.flightId).subscribe((res) => {
-        console.log('res', res);
+        // console.log('res', res);
         if (res) {
           this.requestSent = true;
           setTimeout(() => {
