@@ -9,18 +9,14 @@ import { BehaviorSubject, Observable, catchError, tap } from 'rxjs';
 import { Flight } from '../../types/flights';
 import { Airport } from 'src/types/airport';
 import { FilterFlifght } from 'src/types/filter';
-import { ErrorHandleService } from './error-handle.service';
+import { EMPTY } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private errorHandler: ErrorHandleService
-  ) {}
-  private API_URL = 'https://flight-api-73ie.onrender.com/api';
-  // private API_URL = 'http://localhost:3000/api';
+  constructor(private http: HttpClient, private router: Router) {}
+  // private API_URL = 'https://flight-api-73ie.onrender.com/api';
+  private API_URL = 'http://localhost:3000/api';
   private _flights = new BehaviorSubject<Flight[]>([]);
 
   flights = this._flights.asObservable();
@@ -40,10 +36,12 @@ export class ApiService {
     if (filter?.id) {
       params = params.append('id', filter.id);
     }
-
     return this.http.get<Flight[]>(`${this.API_URL}/flights`, { params }).pipe(
       tap((newFlights) => {
         this._flights.next(newFlights);
+      }),
+      catchError((err, caught) => {
+        return EMPTY;
       })
     );
   }
@@ -78,6 +76,9 @@ export class ApiService {
         tap((res) => {
           if (res) console.log('upadte Flight!', res);
           else console.log('Cant upadte Flight ! ');
+        }),
+        catchError((err, caught) => {
+          return EMPTY;
         })
       );
   }
@@ -92,15 +93,17 @@ export class ApiService {
           this._flights.next(updatedFlights);
           console.log('delete Flight! ', res);
         } else console.log('Cant delete Flight ! ');
+      }),
+      catchError((err, caught) => {
+        return EMPTY;
       })
-      // catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
     );
   }
   getAllAirports() {
-    return this.http
-      .get<Airport[]>(`${this.API_URL}/airports`)
-      .pipe
-      // catchError((error: HttpErrorResponse) => this.errorHandler.handleError(error))
-      ();
+    return this.http.get<Airport[]>(`${this.API_URL}/airports`).pipe(
+      catchError((err, caught) => {
+        return EMPTY;
+      })
+    );
   }
 }
